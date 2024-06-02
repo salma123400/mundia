@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %} Modifier l'Offre d'Emploi {% endblock %} 
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card border-dark mt-5">
+                <div class="card-header bg-dark text-white">
+                    <h2 class="text-center">Modifier l'Offre d'Emploi: </h2>
+                </div>
+                <div class="card-body text-center">
+            
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group mb-3 form-floating" >
+                            <label for="id_titre_poste" for="floatingTextarea">Titre du Poste:</label>
+                            {{ form.titre_poste }}
+                        </div>
+                        <div class="form-group mb-3 form-floating">
+                            <label for="id_description">Description:</label>
+                            {{ form.description }}
+                        </div>
+                        <div class="form-group mb-3 form-floating">
+                            <label for="id_date_publication_present" >Date de Publication:</label>
+                            {{ form.date_publication_present }}
+                        </div>
+                        <div class="form-group mb-3 form-floating">
+                            <label for="id_date_limite_candidature">Date Limite de Candidature:</label>
+                            {{ form.date_limite_candidature }}
+                        </div>
+                        <div class="form-group mb-3 form-floating">
+                            <label for="competence">Competence</label>
+                            {{ form.competence }}
+                        </div>
+                        <div class="form-group mb-3 form-floating">
+                            <label for="id_salaire_propose">Salaire </label>
+                            {{ form.salaire_propose }}
+                        </div>
+                       
+                        <button type="submit" class="btn btn-dark btn-block">Enregistrer les modifications</button>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+

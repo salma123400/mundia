@@ -1,0 +1,108 @@
+{% extends 'navbar.html' %}
+
+{% load humanize %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSeek</title>
+
+
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'base.css' %}" rel="stylesheet">
+</head>
+<body>
+
+    
+                <!-- Search Section -->
+                <style>
+                    /* Custom styles for the search form */
+                    .search-form {
+                        width: 100%;
+                    }
+                    .search-form .form-group {
+                        width: calc(25% - 1rem); /* 4 items in a row with a small margin */
+                    }
+                    @media (max-width: 1200px) {
+                        .search-form .form-group {
+                            width: calc(33% - 1rem); /* 3 items in a row */
+                        }
+                    }
+                    @media (max-width: 992px) {
+                        .search-form .form-group {
+                            width: calc(50% - 1rem); /* 2 items in a row */
+                        }
+                    }
+                    @media (max-width: 768px) {
+                        .search-form .form-group {
+                            width: 100%; /* 1 item in a row */
+                        }
+                    }
+                </style>
+                <h1 class="mt-5 mb-3 text-center"><strong>Available Openings</strong></h1>
+                
+                    <div class="card-body text-center">
+                        <form method="get" class="d-flex justify-content-center flex-wrap search-form">
+                            <div class="form-floating form-group mx-2">
+                                <input type="text" class="form-control" name="description" id="VS01" placeholder="Post Title">
+                                <label for="VS01">Post Title</label>
+                            </div>
+                            <div class="form-floating form-group mx-2">
+                                <input type="text" class="form-control" name="id_competence" id="VS02" placeholder="Skill">
+                                <label for="VS02">Skill</label>
+                            </div>
+                            <div class="form-floating form-group mx-2">
+                                <input type="text" class="form-control" name="niveau_metrise" id="VS03" placeholder="Mastery Level">
+                                <label for="VS03">Mastery Level</label>
+                            </div>
+                            
+                        </form>
+                        <div class="form-floating form-group mx-2 align-self-end">
+                            <button type="submit" class="btn btn-outline-dark">Search</button>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Job Listings Section -->
+                <div class="container">
+                    <div class="card border-dark">
+                        <div class="card-header bg-dark text-white">
+                            <h2 class="text-center">Job Already existing</h2>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for demande in demandes %}
+                        <div class="col">
+                            <div class="card  h-100">
+                                <div class="card-header text-light bg-dark">
+                                    <h5 class="card-title">{{ demande.user.nom }} {{ demande.user.prenom }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Description: {{ demande.description }}</p>
+                                    <p class="card-text">Skill: 
+                                        {% for posseder in demande.posseder_data %}
+                                            {{ posseder.id_competence.nom_competence }},
+                                        {% endfor %}
+                                    </p>
+                                    {% for posseder in demande.posseder_data %}
+                                        <p class="card-text">Mastery Level <small class="text-muted">({{ posseder.id_competence.nom_competence }})</small>: {{ posseder.niveau_metrise }}</p>
+                                    {% endfor %}
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Created: {{ demande.date_soumission|naturaltime }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+ 
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

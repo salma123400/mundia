@@ -1,0 +1,40 @@
+{% extends "navbar.html" %}
+
+{% block title %} Modifier la demande d'Emploi {% endblock %} 
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card border-dark mt-5">
+                <div class="card-header bg-dark text-white">
+                    <h2 class="text-center">Modifier la demande d'Emploi: </h2>
+                </div>
+                <div class="card-body text-center">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-floating form-group mb-3">
+                            <input type="text" class="form-control" name="description" id="description" placeholder="Description" value="{{ form.description.value }}">
+                            <label for="description">Description</label>
+                        </div>
+                        {% for field in form %}
+                            {% if field.name != 'description' %}
+                                <div class="form-floating form-group mb-3">
+                                    <select class="form-control" name="{{ field.name }}" id="{{ field.id }}">
+                                        {% for value, label in field.field.choices %}
+                                            <option value="{{ value }}" {% if field.value == value %} selected {% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="{{ field.id }}">{{ field.label }}</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="btn btn-dark btn-block">Enregistrer les modifications</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

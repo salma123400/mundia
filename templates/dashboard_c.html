@@ -1,0 +1,48 @@
+{% extends "navbar.html" %}
+{% block title %} UI Tables {% endblock %} 
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<div class="container">
+    <div class="card border-dark">
+        <div class="card-header bg-dark text-white">
+            <h2 class="text-center">Job Already existing</h2>
+        </div>
+        <div class="card-body">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for demande in demandes %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="card-title">{{ demande.user.nom }} {{ demande.user.prenom }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Description : {{ demande.description }}</p>
+                                <p class="card-text">Skill : 
+                                    {% for posseder in demande.posseder_data %}
+                                        {{ posseder.id_competence.nom_competence }},
+                                    {% endfor %}
+                                </p>
+                                {% for posseder in demande.posseder_data %}
+                                    <p class="card-text">Mastery Level <small class="text-muted">({{ posseder.id_competence.nom_competence }})</small> : {{ posseder.niveau_metrise }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Created : {{ demande.date_soumission|naturaltime }}</small>
+                                <a href="{% url 'modify_DemandeDEmploi' demande.id_demande %}" class="btn btn-outline-secondary">Modify</a>
+                                <a href="{% url 'delete_DemandeDEmploi' demande.id_demande %}" class="btn btn-outline-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<div class="container">
+    <div class="card border-dark">
+        <div class="card-header bg-dark text-white">
+            <h4 class="card-title mt-0">Table des Postes</h4>
+            <p class="card-category">Tous les détails</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Nom du poste</th>
+                            <th>Description</th>
+                            <th>Date de publication</th>
+                            <th>Date Limite</th>
+                            <th>Compétence</th>
+                            <th>Salaire</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for poste in postes %}
+                        <tr>
+                            <td>{{ poste.titre_poste }}</td>
+                            <td>{{ poste.description }}</td>
+                            <td>{{ poste.date_publication_present }}</td>
+                            <td>{{ poste.date_limite_candidature }}</td>
+                            <td>{{ poste.competence }}</td>
+                            <td>{{ poste.salaire_propose }}</td>
+                            <td>
+                                <a href="{% url 'delete_OffreDEmploi' poste.id_offre %}" class="btn btn-danger btn-sm">Sup</a>
+                                <a href="{% url 'modify_OffreDEmploi' poste.id_offre %}" class="btn btn-warning btn-sm">Mod</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+{% endblock content %}
