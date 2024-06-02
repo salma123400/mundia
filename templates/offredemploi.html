@@ -1,0 +1,99 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<div class="container">
+    <!-- Messages Section -->
+    <div class="container mb-2"> 
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'error' in message.tags %}
+                    <div class="alert alert-warning alert-dismissible fade show alert-custom" role="alert">         
+                        <strong>{{ message }}</strong>
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    
+    <!-- Available Openings Section -->
+    <h1 class="text-center"><strong>Available Openings</strong></h1>
+    <br/>
+    
+    <!-- Search Form -->
+   
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="titre_poste" id="VS01" placeholder="Post Title">
+                        <label for="VS01">Post Title</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="competence" id="VS02" placeholder="Skill">
+                        <label for="VS02">Skill</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="salaire_propose" id="VS03" placeholder="Salary">
+                        <label for="VS03">Salary</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="date_limite_candidature" id="VS04" placeholder="Application deadline">
+                        <label for="VS04">Application deadline</label>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-outline-secondary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Job Listings Table -->
+    <div class="card mt-3 mx-auto" style="max-width: 100%;">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr class="table-active">
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Competence</th>
+                            <th>Salary</th>
+                            <th>Publication date</th>
+                            <th>Application deadline</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for offre in offres %}
+                            <tr>
+                                <td>{{ offre.recruteur.nom_recruteur }}</td>
+                                <td>{{ offre.titre_poste }}</td>
+                                <td>{{ offre.description }}</td>
+                                <td>{{ offre.competence }}</td>
+                                <td>{{ offre.salaire_propose }}</td>
+                                <td>{{ offre.date_publication_present }}</td>
+                                <td>{{ offre.date_limite_candidature }}</td>
+                                <td><a href="#" class="btn btn-outline-secondary btn-sm">Apply</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+{% endblock %}
+

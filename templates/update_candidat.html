@@ -1,0 +1,129 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'sign.css' %}" rel="stylesheet" type="text/css">
+
+    
+
+    <div class="container mt-5">
+        <div class="container mb-2"> 
+              {% if messages %}
+       {% for message in messages %}
+       {% if 'success' in message.tags %}
+           <div class="alert alert-success alert-dismissible fade show alert-custom" role="alert">
+               <strong>{{ message }}</strong>
+               <i class="fa-solid fa-check"></i>
+           </div>
+           {% elif 'error' in message.tags %}
+           <div class="alert alert-warning alert-dismissible fade show alert-custom" role="alert">         
+               <strong>{{ message }}</strong>
+               <i class="fa-solid fa-circle-exclamation"></i>
+           </div>
+           {% endif %}
+           {% endfor %}
+           {% else %}
+           <div class="alert alert-primary alert-dismissible fade show alert-custom" role="alert">
+               <strong>Update your profile with valid inputs!</strong>
+               <i class="fa-solid fa-circle-info"></i>
+           </div>
+           {% endif %}
+       </div>
+    <form method="post" action="{% url 'update_candidat' %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control  {% if form.nom.errors %}is-invalid{% endif %}" name="nom" id="vs01" value="{{ form.nom.value }}" placeholder="Nom">
+                    <label for="vs01">First Name</label>
+                    {% for error in form.nom.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control {% if form.prenom.errors %}is-invalid{% endif %}" name="prenom" placeholder="Prenom" value="{{ form.prenom.value }}" >
+                    <label for="floatingPrenom">Last Name</label>
+                    {% for error in form.prenom.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control {% if form.address.errors %}is-invalid{% endif %}" name="address" placeholder="Address" value="{{ form.address.value|default_if_none:'' }}" >
+                    <label for="floatingAddress">Address</label>
+                    {% for error in form.address.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control {% if form.num_telephone.errors %}is-invalid{% endif %}" name="num_telephone" placeholder="Numero de telephone" value="{{form.num_telephone.value}}" >
+                    <label for="floatingPhone">Phone number</label>
+                    {% for error in form.num_telephone.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control {% if form.presentation.errors %}is-invalid{% endif %}" name="presentation" placeholder="Presentation" value="{{form.presentation.value}}" >
+                    <label for="floatingPresentation">Presentation</label>
+                    {% for error in form.presentation.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name="email" placeholder="Email Address" value="{{form.email.value}}" >
+                    <label for="floatingEmail">Email Address</label>
+                    {% for error in form.email.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-floating">
+                    <input type="password" class="form-control {% if form.motdepass.errors %}is-invalid{% endif %}" name="motdepass" placeholder="Password" >
+                    <label for="floatingPassword">Password</label>
+                    {% for error in form.motdepass.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center">
+                <button type="button" class="btn btn-outline-secondary ms-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Update</button>
+            </div>
+        </div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Alert!</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you provided valid information?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-outline-secondary">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </form>
+
+
+
+{% endblock  %}
